@@ -34,7 +34,9 @@ const takePhoto = (url, viewport = initViewPort ) => {
 				phInstance.exit();
 			});
 	})
-} 
+}
+
+app.use('/shots', express.static('assets'))
 
 app.get('/screenshot', (req, res) => {
 	takePhoto(req.query.url)
