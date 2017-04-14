@@ -1,10 +1,12 @@
 const express = require('express');
 const phantom = require('phantom');
 const uuidV4 = require('uuid/v4');
+const path = require('path');
 
-let app = express();
-let PORT = 3000;
-let initViewPort = {width: 640, height: 400};
+const app = express();
+const PORT = 3000;
+const initViewPort = {width: 640, height: 400};
+const assets_dir = './assets';
 
 const generateName = () => (`${uuidV4()}.png`)
 
@@ -21,7 +23,7 @@ const takePhoto = (url, viewport = initViewPort ) => {
 				page.property('viewportSize', viewport).then(function() {
 					page.open(url)
 						.then(function () {
-							page.render(generateName());
+							page.render(assets_dir + '/' + generateName());
 							phInstance.exit();
 							return res('success');
 						})
