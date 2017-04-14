@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
-const initViewPort = {width: 640, height: 400};
+const initViewPort = {width: 1360, height: 768};
 const assets_dir = './assets';
 
 const generateName = () => (`${uuidV4()}.png`)
