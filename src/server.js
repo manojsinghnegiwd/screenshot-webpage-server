@@ -23,9 +23,12 @@ const takePhoto = (url, viewport = initViewPort ) => {
 				page.property('viewportSize', viewport).then(function() {
 					page.open(url)
 						.then(function () {
-							page.render(assets_dir + '/' + generateName());
-							phInstance.exit();
-							return res('success');
+							let path = assets_dir + '/' + generateName();
+							page.render(path)
+								.then(function () {
+									phInstance.exit();
+									return res(path);
+								});
 						})
 				});
 			})
@@ -40,7 +43,7 @@ app.use('/shots', express.static('assets'))
 
 app.get('/screenshot', (req, res) => {
 	takePhoto(req.query.url)
-		.then(msg => res.json({msg}))
+		.then(path => res.json({path}))
 		.catch(msg => res.json({msg}))
 })
 
