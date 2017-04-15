@@ -11,7 +11,7 @@ const assets_dir = './assets';
 const generateName = () => (`${uuidV4()}.png`)
 
 const takePhoto = (url, viewport = initViewPort ) => {
-	return new Promise ((res, req) => {
+	return new Promise ((res, rej) => {
 		let phInstance = null;
 
 		phantom.create()
@@ -22,13 +22,19 @@ const takePhoto = (url, viewport = initViewPort ) => {
 			.then(function (page) {
 				page.property('viewportSize', viewport).then(function() {
 					page.open(url)
-						.then(function () {
-							let path = assets_dir + '/' + generateName();
-							page.render(path)
-								.then(function () {
-									phInstance.exit();
-									return res(path);
-								});
+						.then(function (status) {
+							if(status != 'fail') {
+								let filename = generateName();
+								let path = assets_dir + '/' + filename;
+								page.render(path)
+									.then(function () {
+										phInstance.exit();
+										return res(filename);
+									});
+							} else {
+								return rej('Failed! Make sure you entered a valid url');
+								phInstance.exit();
+							}
 						})
 				});
 			})
