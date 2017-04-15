@@ -4,7 +4,7 @@ const uuidV4 = require('uuid/v4');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.NODE_ENV == 'production' ? 8080 : 3000 ;
 const initViewPort = {width: 1360, height: 768};
 const assets_dir = path.join(__dirname, '../assets');
 
@@ -55,4 +55,4 @@ app.get('/screenshot', (req, res) => {
 
 // listen on port
 
-app.listen(PORT, () => console.log('Bring it on'))
+app.listen(PORT, () => console.log('Bring it on at ' + PORT))
