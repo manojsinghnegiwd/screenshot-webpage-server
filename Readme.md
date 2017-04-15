@@ -29,6 +29,7 @@ Put any url in place of http://www.google.com. You will get image as the respons
  * `url` : Address of the webpage to take screenshot of
  * `width` : viewport width ( default is `1360` )
  * `height` : viewport height ( default is `768` )
+ * `format` : default is `raw` can be change to `base64`
 
 # Response
 You will get an image as the reponse of the request. Images will be saved in assets folder for future use and serverd at http://localhost:(port)/shots.
