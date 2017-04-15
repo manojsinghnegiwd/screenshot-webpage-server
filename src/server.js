@@ -10,7 +10,8 @@ const assets_dir = path.join(__dirname, '../assets');
 
 const generateName = () => (`${uuidV4()}.png`)
 
-const takePhoto = (url, viewport = initViewPort ) => {
+const takePhoto = (url, viewport) => {
+	console.log(viewport);
 	return new Promise ((res, rej) => {
 		let phInstance = null;
 
@@ -48,7 +49,13 @@ const takePhoto = (url, viewport = initViewPort ) => {
 app.use('/shots', express.static('assets'))
 
 app.get('/screenshot', (req, res) => {
-	takePhoto(req.query.url)
+
+	let {url, width = initViewPort.width, height = initViewPort.height} = req.query
+
+	takePhoto(url, {
+			width,
+			height
+		})
 		.then(name => res.status(200).sendFile(assets_dir + '/' + name))
 		.catch(msg => res.status(400).json({msg}))
 })
