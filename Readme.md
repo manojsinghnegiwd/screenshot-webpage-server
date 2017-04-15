@@ -3,7 +3,7 @@
 
 ##### NOTE : This api need node version >= 7
 
-This boilerplate uses
+This Api uses
 
 * NodeJS ( version >= 7 )
 * Nodemon
